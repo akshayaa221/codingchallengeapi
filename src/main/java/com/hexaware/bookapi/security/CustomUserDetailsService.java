@@ -4,27 +4,25 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.*;
-
-// Import for @Autowired
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
+	
     private final Map<String, UserDetails> users = new HashMap<>();
 
-    // Autowire the BCryptPasswordEncoder bean
+    
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // Use constructor injection for BCryptPasswordEncoder
+    
     @Autowired
     public CustomUserDetailsService(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder; // Assign the injected encoder
+        this.passwordEncoder = passwordEncoder; 
 
-        // Encode the password using the injected passwordEncoder
+       
         UserDetails user = User.builder()
                 .username("user")
-                .password(passwordEncoder.encode("password")) // Use the injected encoder
+                .password(passwordEncoder.encode("password")) 
                 .roles("USER")
                 .build();
         users.put("user", user);
